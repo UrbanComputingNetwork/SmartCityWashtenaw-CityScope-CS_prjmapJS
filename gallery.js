@@ -1,0 +1,133 @@
+var slideIndex = 0;
+var playing = true;
+var currentTimeout;
+
+// make the first div
+$('<div/>', {
+    id: 'keystoneContainer',
+}).appendTo('body');
+//make second div
+$('<div/>', {
+    id: 'keystoneContainer2',
+}).appendTo('body');
+//run mapping class for both divs
+Maptastic("keystoneContainer", "keystoneContainer2")
+
+//interaction and loading files 
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+document.body.addEventListener('keydown', (event) => {
+    const keyName = event.key;
+    if (keyName == 'ArrowLeft') {
+        plusSlides(-1);
+    } else if (keyName == 'ArrowRight' || keyName == 'b') {
+        plusSlides(1);
+    } else if (keyName == 'p') {
+        togglePlayPause();
+    }
+}, false);
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    var video_ids = [];
+    for (var i = 0, f; f = files[i]; i++) {
+        //if  img file ext.
+        if (f.name.slice(-3) != "mov" && f.name.slice(-3) != "MOV" && f.name.slice(-3) != "mp4" && f.name.slice(-
+            3) != "MP4" && f.name.slice(-3) != "avi" && f.name.slice(-3) != "AVI") {
+            output.push("<div class=\" mySlides fade\" ><img src=\" media/" + escape(f.name) + "\" height=\" 100%\" width= \"100%\" ></div>");
+
+        } else {
+            //if movie file
+            output.push(
+                "<div class=\"mySlides fade\"><video controls=\"controls\" poster=\"MEDIA\" preload=\"true\" loop=\"true\" autoplay=\"true\" src=\"media/" +
+                escape(f.name) + "\" id=\"video" + i +
+                "\" height=\"100%\" width= \"100%\"></video></div>");
+            video_id = "video" + i;
+            video_ids.push(video_id);
+        }
+    }
+
+    // put slides in first div
+    document.getElementById('keystoneContainer').innerHTML = output.join('');
+
+    showSlides(0);
+}
+
+//feed the inner div with the relevant slide content 
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    //hide all slides divs  at start 
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    //resert roll to 1 at end 
+    if (n == slides.length) {
+        slideIndex = 1
+    }
+    //avoid slide zero
+    if (n < 1) {
+        slideIndex = 1
+    }
+    //set this slide 
+    thisSlide = slides[(slideIndex - 1)];
+    //reset video at each slide to avoid differences in divs 
+    if (thisSlide.querySelector('video')) {
+        console.log('video');
+        thisSlide.querySelector('video').load();
+    }
+    thisSlide.style.display = "block";
+    $('#keystoneContainer2').html($(thisSlide).clone());
+
+}
+
+//on click go to next/prev slide 
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+function autoSlideShow() {
+
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    //hide all slides divs  at start 
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    slideIndex++
+    //resert roll to 1 at end 
+    if (slideIndex == slides.length) {
+        slideIndex = 1
+    }
+    //avoid slide zero
+    if (slideIndex < 1) {
+        slideIndex = 1
+    }
+    //set this slide 
+    thisSlide = slides[(slideIndex - 1)];
+
+    //reset video at each slide to avoid differences in divs 
+    if (thisSlide.querySelector('video')) {
+        console.log('video');
+        thisSlide.querySelector('video').load();
+    }
+    thisSlide.style.display = "block";
+    $('#keystoneContainer2').html($(thisSlide).clone());
+
+    if (playing == true) {
+        currentTimeout = setTimeout(autoSlideShow, 1000); // Change image every x miliseconds
+    }
+}
+
+function togglePlayPause() {
+    if (playing == true) {
+        playing = false;
+        clearTimeout(currentTimeout);
+    } else {
+        playing = true;
+        autoSlideShow();
+    }
+}
+

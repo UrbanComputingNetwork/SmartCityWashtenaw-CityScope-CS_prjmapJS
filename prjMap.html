@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://github.com/CityScope/CS_Andorra_RNC",
+          "@type": "Person",
+          "address": {
+            "@type": "75 Amherst St, Cambridge, MA 02139",
+            "addressLocality": " Cambridge",
+            "addressRegion": "MA",
+          },
+         
+          "jobTitle": "Research Scientist",
+          "name": "Ariel Noyman",
+          "alumniOf": "MIT",
+          "url": "http://arielnoyman.com",
+          "https://www.linkedin.com/",
+          "http://twitter.com/relno",
+          https://github.com/RELNO]
+        }
+        </script>
+
+</head>
+
+<body>
+    <div class="overCanvas">
+        <input type="file" id="files" name="files[]" multiple />
+        <button onclick="toggleHelp()">help</button>
+    </div>
+    <output id="list"></output>
+
+    <div id="helpDiv" class="text">
+        <div>press Shift+z to Toggle [on/off] edit mode and reposition and keystone the divs</div>
+        <div>&nbsp;</div>
+        <div>
+            <strong>In Edit Mode</strong>
+        </div>
+        <br />
+        <ul>
+            <li>click or drag select and move quads/corner points</li>
+            <li>SHIFT + drag move selected quad/corner point with 10x precision</li>
+            <li>ALT + drag rotate and scale selected quad</li>
+            <li>SHIFT + ALT + drag rotate and scale selected quad with 10x precision.</li>
+            <li>Arrow keys move selected quad/corner point</li>
+            <li>SHIFT + Arrow keys move selected quad/corner point by 10 pixels</li>
+            <li>ALT + Arrow keys rotate and scale selected quad</li>
+            <li>s Solo or unsolo the selected quad (hides all others). This helps to adjust quads when corner points are very
+                close together.</li>
+            <li>c Toggle mouse cursor crosshairs</li>
+            <li>b Toggle display bounds/metrics</li>
+            <li>r Rotate selected layer 90 degrees clockwise</li>
+            <li>h Flip selected layer horizontally</li>
+            <li>v Flip selected layer vertically</li>
+        </ul>
+    </div>
+    
+    <!-- to add youtube  -->
+<!-- <iframe width="1000" height="1000" src="https://www.youtube.com/embed/fwNGo1xDv_c?autoplay=1&loop=1&cc_load_policy=1rel=0&amp;controls=1&amp;showinfo=0&playlist=fwNGo1xDv_c" frameborder="0" allowfullscreen id="video-test"></iframe> -->
+    <script>
+        function toggleHelp() {
+            var x = document.getElementById("helpDiv");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+<script src="maptastic.js"></script>
+<script src="gallery.js"></script>
+
+
+</html>
