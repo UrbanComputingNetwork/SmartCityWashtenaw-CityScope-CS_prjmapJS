@@ -615,26 +615,32 @@ var Maptastic = function (config) {
 		}
 
 		layers.push(layer);
-
 		updateTransform();
 	};
 
 	var saveSettings = function () {
 		let saveDat = localStorage.setItem(localStorageKey, JSON.stringify(getLayout(layers)));
-		// console.log(JSON.stringify(getLayout(layers)));
-
-		//     var data = {a:1, b:2, c:3};
-		// var json = JSON.stringify(data);
-		// var blob = new Blob([json], {type: "application/json"});
-		// var url  = URL.createObjectURL(blob);
-
-		// var a = document.createElement('a');
-		// a.download    = "backup.json";
-		// a.href        = url;
-		// a.textContent = "Download backup.json";
-
-
+		let cityIOobj = JSON.stringify(getLayout(layers));
+		console.log(cityIOobj);
+		//send to cityIO 
+		fetch("https://cityio.media.mit.edu/api/table/update/prjmapJS", {
+			method: "POST",
+			body: cityIOobj
+		}).then((response) => {
+			console.log(response);
+		});
 	};
+	//     var data = {a:1, b:2, c:3};
+	// var json = JSON.stringify(data);
+	// var blob = new Blob([json], {type: "application/json"});
+	// var url  = URL.createObjectURL(blob);
+
+	// var a = document.createElement('a');
+	// a.download    = "backup.json";
+	// a.href        = url;
+	// a.textContent = "Download backup.json";
+
+
 
 	var loadSettings = function () {
 		if (localStorage.getItem(localStorageKey)) {

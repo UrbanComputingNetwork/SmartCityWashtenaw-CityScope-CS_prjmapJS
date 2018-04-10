@@ -2,6 +2,7 @@ var slideIndex = 0;
 var playing = true;
 var currentTimeout;
 
+
 // make the first div
 $('<div/>', {
     id: 'keystoneContainer',
@@ -13,31 +14,43 @@ $('<div/>', {
 //run mapping class for both divs
 Maptastic("keystoneContainer", "keystoneContainer2")
 
-//interaction and loading files 
-document.getElementById('files').addEventListener('change', handleFileSelect, false);
-document.body.addEventListener('keydown', (event) => {
-    const keyName = event.key;
-    if (keyName == 'ArrowLeft') {
-        plusSlides(-1);
-    } else if (keyName == 'ArrowRight' || keyName == 'b') {
-        plusSlides(1);
-    } else if (keyName == 'p') {
-        togglePlayPause();
+
+//full screen when CTRL+F is pressed
+
+function toggleFullScreen() {
+    var doc = window.document;
+    var docEl = doc.documentElement;
+
+    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen ||
+        docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen ||
+        doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        requestFullScreen.call(docEl);
     }
-}, false);
+    else {
+        cancelFullScreen.call(doc);
+    }
+}
+
 
 function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
+    // FileList object
+    var files = evt.target.files;
     // files is a FileList of File objects. List some properties.
     var output = [];
     var video_ids = [];
+    //loop through slected files 
     for (var i = 0, f; f = files[i]; i++) {
-        //if  img file ext.
+
+        //if img file ext.
         if (f.name.slice(-3) != "mov" && f.name.slice(-3) != "MOV" && f.name.slice(-3) != "mp4" && f.name.slice(-
             3) != "MP4" && f.name.slice(-3) != "avi" && f.name.slice(-3) != "AVI") {
             output.push("<div class=\" mySlides fade\" ><img src=\" media/" + escape(f.name) + "\" height=\" 100%\" width= \"100%\" ></div>");
 
         } else {
+
             //if movie file
             output.push(
                 "<div class=\"mySlides fade\"><video controls=\"controls\" poster=\"MEDIA\" preload=\"true\" loop=\"true\" autoplay=\"true\" src=\"media/" +
@@ -47,10 +60,8 @@ function handleFileSelect(evt) {
             video_ids.push(video_id);
         }
     }
-
     // put slides in first div
     document.getElementById('keystoneContainer').innerHTML = output.join('');
-
     showSlides(0);
 }
 
@@ -79,7 +90,6 @@ function showSlides(n) {
     }
     thisSlide.style.display = "block";
     $('#keystoneContainer2').html($(thisSlide).clone());
-
 }
 
 //on click go to next/prev slide 
@@ -87,8 +97,8 @@ function plusSlides(n) {
     showSlides(slideIndex += n);
 }
 
+//autoplay when press P
 function autoSlideShow() {
-
     var i;
     var slides = document.getElementsByClassName("mySlides");
     //hide all slides divs  at start 
@@ -131,3 +141,26 @@ function togglePlayPause() {
     }
 }
 
+/////////////////////////////////////
+// INTERACTION
+/////////////////////////////////////
+
+// key listener 
+document.addEventListener("keydown", function (e) {
+    if (e.keyCode == 70) {
+        toggleFullScreen();
+    }
+}, false);
+
+//interaction and loading files 
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+document.body.addEventListener('keydown', (event) => {
+    const keyName = event.key;
+    if (keyName == 'ArrowLeft') {
+        plusSlides(-1);
+    } else if (keyName == 'ArrowRight' || keyName == 'b') {
+        plusSlides(1);
+    } else if (keyName == 'p') {
+        togglePlayPause();
+    }
+}, false);
