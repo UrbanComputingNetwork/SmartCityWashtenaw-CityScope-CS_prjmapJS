@@ -64,6 +64,8 @@ var Maptastic = function (config) {
 	var mouseDelta = [];
 	var mouseDownPoint = [];
 
+	var cityIOobj;
+
 	// Compute linear distance.
 	var distanceTo = function (x1, y1, x2, y2) {
 		return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
@@ -620,15 +622,9 @@ var Maptastic = function (config) {
 
 	var saveSettings = function () {
 		let saveDat = localStorage.setItem(localStorageKey, JSON.stringify(getLayout(layers)));
-		let cityIOobj = JSON.stringify(getLayout(layers));
-		console.log(cityIOobj);
-		//send to cityIO 
-		fetch("https://cityio.media.mit.edu/api/table/update/prjmapJS", {
-			method: "POST",
-			body: cityIOobj
-		}).then((response) => {
-			console.log(response);
-		});
+		// setup saved to cityIO before sending 
+		cityIOobj = JSON.stringify(getLayout(layers));
+
 	};
 	//     var data = {a:1, b:2, c:3};
 	// var json = JSON.stringify(data);
@@ -690,6 +686,17 @@ var Maptastic = function (config) {
 			selectedLayer = null;
 			dragging = false;
 			showScreenBounds = false;
+
+			//send to cityIO when done editing 
+			console.log(cityIOobj);
+			//send to cityIO 
+			fetch("https://cityio.media.mit.edu/api/table/update/prjmapJS", {
+				method: "POST",
+				body: cityIOobj
+			}).then((response) => {
+				console.log(response);
+			});
+
 		} else {
 			draw();
 		}
