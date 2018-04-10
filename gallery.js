@@ -27,12 +27,17 @@ window.document.channel.onmessage = function (m) {
   switch(data.command) {
     case 'increment':
         console.log('i wanna increment');
-        slideIndex ++; // TODO: error handle this
+        plusSlides(1); // TODO: error handle this
       break;
     case 'decrement':
         console.log('i wanna decrement');
-        slideIndex --; // TODO: error handle this
+        plusSlides(-1); // TODO: error handle this
       break;
+    case 'sync':
+        console.log('sync with slide No:'+ slideIndex);
+        slideIndex = data.id;
+        showSlides(slideIndex);
+        break;
     default :
         console.log('undefined command:' + data.command);
   }
@@ -129,6 +134,7 @@ function showSlides(n) {
 //on click go to next/prev slide 
 function plusSlides(n) {
     showSlides(slideIndex += n);
+    // send meesage here
 }
 
 //autoplay when press P
@@ -190,10 +196,16 @@ document.addEventListener("keydown", function (e) {
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 document.body.addEventListener('keydown', (event) => {
     const keyName = event.key;
+    let message = {};
+    message.command = 'sync';
     if (keyName == 'ArrowLeft') {
         plusSlides(-1);
+        message.id = slideIndex;
+        window.document.channel.postMessage(JSON.stringify(message));
     } else if (keyName == 'ArrowRight' || keyName == 'b') {
         plusSlides(1);
+        message.id = slideIndex;
+        window.document.channel.postMessage(JSON.stringify(message));
     } else if (keyName == 'p') {
         togglePlayPause();
     }
