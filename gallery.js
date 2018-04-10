@@ -15,6 +15,40 @@ $('<div/>', {
 Maptastic("keystoneContainer", "keystoneContainer2")
 
 
+
+
+//---------------------------------------------------------------------- 
+// TODO: hide chanel variable once it is working
+window.document.channel = new BroadcastChannel('channel');
+window.document.channel.onmessage = function (m) {
+  
+  let data = JSON.parse(m.data);
+  
+  switch(data.command) {
+    case 'increment':
+        console.log('i wanna increment');
+        slideIndex ++; // TODO: error handle this
+      break;
+    case 'decrement':
+        console.log('i wanna decrement');
+        slideIndex --; // TODO: error handle this
+      break;
+    default :
+        console.log('undefined command:' + data.command);
+  }
+
+}
+
+const sendContianer = document.querySelector('#send');
+sendContianer.addEventListener('click', e => {
+  let incMessage = {};
+  incMessage.command = 'increment';
+  window.document.channel.postMessage(JSON.stringify(incMessage));
+});
+
+
+//---------------------------------------------------------------------- 
+
 //full screen when CTRL+F is pressed
 
 function toggleFullScreen() {
@@ -147,7 +181,7 @@ function togglePlayPause() {
 
 // key listener 
 document.addEventListener("keydown", function (e) {
-    if (e.keyCode == 70) {
+    if (e.keyCode == 69) {
         toggleFullScreen();
     }
 }, false);
