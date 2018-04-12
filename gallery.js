@@ -187,7 +187,7 @@ function togglePlayPause() {
 
 // key listener 
 document.addEventListener("keydown", function (e) {
-    if (e.keyCode == 69) {
+    if (e.keyCode == 70) {
         toggleFullScreen();
     }
 }, false);
