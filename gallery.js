@@ -7,12 +7,14 @@ var currentTimeout;
 $('<div/>', {
     id: 'keystoneContainer',
 }).appendTo('body');
-//make second div
-$('<div/>', {
-    id: 'keystoneContainer2',
-}).appendTo('body');
-//run mapping class for both divs
-Maptastic("keystoneContainer", "keystoneContainer2")
+
+// //make second div
+// $('<div/>', {
+//     id: 'keystoneContainer2',
+// }).appendTo('body');
+// //run mapping class for both divs
+// Maptastic("keystoneContainer", "keystoneContainer2")
+Maptastic("keystoneContainer");
 
 
 
@@ -21,41 +23,40 @@ Maptastic("keystoneContainer", "keystoneContainer2")
 // TODO: hide chanel variable once it is working
 window.document.channel = new BroadcastChannel('channel');
 window.document.channel.onmessage = function (m) {
-  
-  let data = JSON.parse(m.data);
-  
-  switch(data.command) {
-    case 'increment':
-        console.log('i wanna increment');
-        plusSlides(1); // TODO: error handle this
-      break;
-    case 'decrement':
-        console.log('i wanna decrement');
-        plusSlides(-1); // TODO: error handle this
-      break;
-    case 'sync':
-        console.log('sync with slide No:'+ slideIndex);
-        slideIndex = data.id;
-        showSlides(slideIndex);
-        break;
-    default :
-        console.log('undefined command:' + data.command);
-  }
+
+    let data = JSON.parse(m.data);
+
+    switch (data.command) {
+        case 'increment':
+            console.log('i wanna increment');
+            plusSlides(1); // TODO: error handle this
+            break;
+        case 'decrement':
+            console.log('i wanna decrement');
+            plusSlides(-1); // TODO: error handle this
+            break;
+        case 'sync':
+            console.log('sync with slide No:' + slideIndex);
+            slideIndex = data.id;
+            showSlides(slideIndex);
+            break;
+        default:
+            console.log('undefined command:' + data.command);
+    }
 
 }
 
 const sendContianer = document.querySelector('#send');
 sendContianer.addEventListener('click', e => {
-  let incMessage = {};
-  incMessage.command = 'increment';
-  window.document.channel.postMessage(JSON.stringify(incMessage));
+    let incMessage = {};
+    incMessage.command = 'increment';
+    window.document.channel.postMessage(JSON.stringify(incMessage));
 });
 
 
 //---------------------------------------------------------------------- 
 
-//full screen when CTRL+F is pressed
-
+//full screen when '`/~' is pressed
 function toggleFullScreen() {
     var doc = window.document;
     var docEl = doc.documentElement;
@@ -129,7 +130,7 @@ function showSlides(n) {
         thisSlide.querySelector('video').currentTime = 0;
     }
     thisSlide.style.display = "block";
-    $('#keystoneContainer2').html($(thisSlide).clone());
+    // $('#keystoneContainer2').html($(thisSlide).clone());
 }
 
 //on click go to next/prev slide 
@@ -165,7 +166,7 @@ function autoSlideShow() {
         thisSlide.querySelector('video').load();
     }
     thisSlide.style.display = "block";
-    $('#keystoneContainer2').html($(thisSlide).clone());
+    // $('#keystoneContainer2').html($(thisSlide).clone());
 
     if (playing == true) {
         currentTimeout = setTimeout(autoSlideShow, 1000); // Change image every x miliseconds
@@ -188,7 +189,7 @@ function togglePlayPause() {
 
 // key listener 
 document.addEventListener("keydown", function (e) {
-    if (e.keyCode == 70) {
+    if (e.keyCode == 192) {
         toggleFullScreen();
     }
 }, false);

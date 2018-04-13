@@ -11,6 +11,14 @@ body {
     linear-gradient(to bottom, rgb(56, 56, 56) 0.1px, transparent 1px);
 }
 
+:-webkit-full-screen {
+    background-size: 40px 40px;
+    background-color: black;
+    background-image: 
+    linear-gradient(to right, rgb(56, 56, 56) 0.1px, transparent 1px), 
+    linear-gradient(to bottom, rgb(56, 56, 56) 0.1px, transparent 1px);
+}
+
 #keystoneContainer{
     width: 200px !important;
     height: 200px !important;
