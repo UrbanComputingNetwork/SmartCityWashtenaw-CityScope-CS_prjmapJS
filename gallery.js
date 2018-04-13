@@ -193,6 +193,16 @@ function togglePlayPause() {
     }
 }
 
+//----------------------------------------------------------------------
+
+let translateAmount = 0;
+function cropSlide(direction) {
+    translateAmount = translateAmount + direction;
+    let allslides = document.getElementsByClassName('mySlides')
+    for (let i = 0; i < allslides.length; i++) {
+        allslides[i].style.transform = "translate(" + translateAmount + "%, 0)";
+    }
+}
 //---------------------------------------------------------------------- 
 // INTERACTION
 
@@ -219,5 +229,12 @@ document.body.addEventListener('keydown', (event) => {
         window.document.channel.postMessage(JSON.stringify(message));
     } else if (keyName == 'p') {
         togglePlayPause();
+    } else if (keyName == '-') {
+        cropSlide(-1)
+    } else if (keyName == '=') {
+        cropSlide(1)
     }
 }, false);
+
+
+
