@@ -7,6 +7,8 @@ var currentTimeout;
 $('<div/>', {
     id: 'keystoneContainer',
 }).appendTo('body');
+Maptastic("keystoneContainer");
+
 
 // //make second div
 // $('<div/>', {
@@ -14,9 +16,6 @@ $('<div/>', {
 // }).appendTo('body');
 // //run mapping class for both divs
 // Maptastic("keystoneContainer", "keystoneContainer2")
-Maptastic("keystoneContainer");
-
-
 
 
 //---------------------------------------------------------------------- 
@@ -74,10 +73,13 @@ function toggleFullScreen() {
     }
 }
 
+//---------------------------------------------------------------------- 
 
 function handleFileSelect(evt) {
     // FileList object
     var files = evt.target.files;
+    console.log(files);
+
     // files is a FileList of File objects. List some properties.
     var output = [];
     var video_ids = [];
@@ -85,7 +87,7 @@ function handleFileSelect(evt) {
     for (var i = 0, f; f = files[i]; i++) {
 
         //if img file ext.
-        if (f.name.slice(-3) != "mov" && f.name.slice(-3) != "MOV" && f.name.slice(-3) != "mp4" && f.name.slice(-
+        if (f.name.slice(-3) != "mov" && f.name.slice(-3) != "MOV" && f.name.slice(-3) != "mp4" && f.name.slice(-3) != "mpe" && f.name.slice(-
             3) != "MP4" && f.name.slice(-3) != "avi" && f.name.slice(-3) != "AVI") {
             output.push("<div class=\" mySlides fade\" ><img src=\" media/" + escape(f.name) + "\" height=\" 100%\" width= \"100%\" ></div>");
 
@@ -104,6 +106,8 @@ function handleFileSelect(evt) {
     document.getElementById('keystoneContainer').innerHTML = output.join('');
     showSlides(0);
 }
+
+//---------------------------------------------------------------------- 
 
 //feed the inner div with the relevant slide content 
 function showSlides(n) {
@@ -133,11 +137,15 @@ function showSlides(n) {
     // $('#keystoneContainer2').html($(thisSlide).clone());
 }
 
+//---------------------------------------------------------------------- 
+
 //on click go to next/prev slide 
 function plusSlides(n) {
     showSlides(slideIndex += n);
     // send meesage here
 }
+
+//---------------------------------------------------------------------- 
 
 //autoplay when press P
 function autoSlideShow() {
@@ -173,6 +181,8 @@ function autoSlideShow() {
     }
 }
 
+//---------------------------------------------------------------------- 
+
 function togglePlayPause() {
     if (playing == true) {
         playing = false;
@@ -183,9 +193,8 @@ function togglePlayPause() {
     }
 }
 
-/////////////////////////////////////
+//---------------------------------------------------------------------- 
 // INTERACTION
-/////////////////////////////////////
 
 // key listener 
 document.addEventListener("keydown", function (e) {
