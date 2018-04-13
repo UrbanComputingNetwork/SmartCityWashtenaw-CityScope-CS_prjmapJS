@@ -125,7 +125,8 @@ function showSlides(n) {
     //reset video at each slide to avoid differences in divs 
     if (thisSlide.querySelector('video')) {
         console.log('video');
-        thisSlide.querySelector('video').load();
+        // thisSlide.querySelector('video').load();
+        thisSlide.querySelector('video').currentTime = 0;
     }
     thisSlide.style.display = "block";
     $('#keystoneContainer2').html($(thisSlide).clone());
