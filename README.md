@@ -1,6 +1,8 @@
-# PrjMap
+# Projection Mapping Tool for MIT CityScope Web Apps 
+____
+##### check `CS_TOOLBOX` folder for more projection options, Unity3d shaders and LEGO-tizing applet for Rhino GH.
 
-
+____
 ![alt text](/prjmap.gif "demo")
 
 
