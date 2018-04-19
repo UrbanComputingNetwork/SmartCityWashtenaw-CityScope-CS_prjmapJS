@@ -39,6 +39,8 @@ body {
 .helpDiv {
     position: relative;
     left: 2rem;
+    width: 60%;
+    
     top:2rem;
     font-size: 14px;
     font-family: Helvetica, sans-serif;
