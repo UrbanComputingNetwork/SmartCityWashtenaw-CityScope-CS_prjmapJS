@@ -230,9 +230,9 @@ document.body.addEventListener('keydown', (event) => {
     } else if (keyName == 'p') {
         togglePlayPause();
     } else if (keyName == '-') {
-        cropSlide(-1)
+        cropSlide(-10)
     } else if (keyName == '=') {
-        cropSlide(1)
+        cropSlide(10)
     }
 }, false);
 

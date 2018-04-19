@@ -21,24 +21,28 @@ body {
 
 #keystoneContainer{
     overflow: hidden;
-    width: 200px !important;
-    height: 200px !important;
-    background-color: rgba(255, 0, 190, 0.1);
+    width: 400px !important;
+    height: 800px !important;
+    background-color: rgba(255, 0, 191, 0.1);
+    border-style: solid;
+    border-width: 1px;
+    border-color: yellow;
+
 }
 
-#keystoneContainer2{
+/* #keystoneContainer2{
     width: 200px !important;
     height: 200px !important;
     background-color: rgba(0, 162, 255, 0.1);
-}
+} */
 
 .text {
-    font-size: 10px;
+    font-size: 16px;
     font-family: Helvetica, sans-serif;
 }
 
 .mySlides {
-    width: 100% ;
+    width: 200% ;
     height: 100% ;
 }
 #keystoneContainer{
