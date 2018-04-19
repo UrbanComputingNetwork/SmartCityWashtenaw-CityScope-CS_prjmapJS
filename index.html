@@ -39,49 +39,50 @@
     <div id="helpDiv" class="text">
         <br>
         <div>
-            <h1>
-                <br>[~] for full screen
-                <br> [Shift+z] to Toggle
-                <br>keystone the divs</div>
-        </h1>
-        <br>
-        <div>
-            <strong>In Edit Mode</strong>
+            <h2>
+                <ul>
+                    <br>[~] for full screen
+                    <br> [Shift+z] to Toggle keystone the divs
+                </ul>
+            </h2>
+            <br>
+            <div>
+                <strong>When in Edit Mode</strong>
+            </div>
+            <br />
+            <ul>
+                <li>click or drag select and move quads/corner points</li>
+                <li>SHIFT + drag move selected quad/corner point with 10x precision</li>
+                <li>ALT + drag rotate and scale selected quad</li>
+                <li>SHIFT + ALT + drag rotate and scale selected quad with 10x precision.</li>
+                <li>Arrow keys move selected quad/corner point</li>
+                <li>SHIFT + Arrow keys move selected quad/corner point by 10 pixels</li>
+                <li>ALT + Arrow keys rotate and scale selected quad</li>
+                <li>'s' Solo or unsolo the selected quad (hides all others).
+                    <br>This helps to adjust quads when corner points are very close together.</li>
+                <li>'c' Toggle mouse cursor crosshairs</li>
+                <li>'b' Toggle display bounds/metrics</li>
+                <li>'r' Rotate selected layer 90 degrees clockwise</li>
+                <li>'h' Flip selected layer horizontally</li>
+                <li>'v' Flip selected layer vertically</li>
+            </ul>
+            <div id="send">
+                <small>Message to other tabs</small>
+            </div>
         </div>
-        <br />
-        <ul>
-            <li>click or drag select and move quads/corner points</li>
-            <li>SHIFT + drag move selected quad/corner point with 10x precision</li>
-            <li>ALT + drag rotate and scale selected quad</li>
-            <li>SHIFT + ALT + drag rotate and scale selected quad with 10x precision.</li>
-            <li>Arrow keys move selected quad/corner point</li>
-            <li>SHIFT + Arrow keys move selected quad/corner point by 10 pixels</li>
-            <li>ALT + Arrow keys rotate and scale selected quad</li>
-            <li>'s' Solo or unsolo the selected quad (hides all others).
-                <br>This helps to adjust quads when corner points are very close together.</li>
-            <li>'c' Toggle mouse cursor crosshairs</li>
-            <li>'b' Toggle display bounds/metrics</li>
-            <li>'r' Rotate selected layer 90 degrees clockwise</li>
-            <li>'h' Flip selected layer horizontally</li>
-            <li>'v' Flip selected layer vertically</li>
-        </ul>
-        <div id="send">
-            <small>Message to other tabs</small>
-        </div>
-    </div>
 
-    <!-- to add youtube  -->
-    <!-- <iframe width="1000" height="1000" src="https://www.youtube.com/embed/fwNGo1xDv_c?autoplay=1&loop=1&cc_load_policy=1rel=0&amp;controls=1&amp;showinfo=0&playlist=fwNGo1xDv_c" frameborder="0" allowfullscreen id="video-test"></iframe> -->
-    <script>
-        function toggleHelp() {
-            var x = document.getElementById("helpDiv");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
+        <!-- to add youtube  -->
+        <!-- <iframe width="1000" height="1000" src="https://www.youtube.com/embed/fwNGo1xDv_c?autoplay=1&loop=1&cc_load_policy=1rel=0&amp;controls=1&amp;showinfo=0&playlist=fwNGo1xDv_c" frameborder="0" allowfullscreen id="video-test"></iframe> -->
+        <script>
+            function toggleHelp() {
+                var x = document.getElementById("helpDiv");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
             }
-        }
-    </script>
+        </script>
 
 </body>
 
