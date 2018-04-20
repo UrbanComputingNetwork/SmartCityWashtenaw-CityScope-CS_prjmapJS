@@ -46,6 +46,11 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
+iframe{
+    width: 600px;
+    height: 600px;
+}
+
 .mySlides {
     width: 200% ;
     height: 100% ;

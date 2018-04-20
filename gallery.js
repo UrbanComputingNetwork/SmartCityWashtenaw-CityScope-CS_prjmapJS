@@ -203,6 +203,18 @@ function cropSlide(direction) {
         allslides[i].style.transform = "translate(" + translateAmount + "%, 0)";
     }
 }
+
+
+//----------------------------------------------------------------------
+
+function makeIframe() {
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://api.mapbox.com/styles/v1/relnox/cjg1ixe5s2ubp2rl3eqzjz2ud.html?fresh=true&title=true&access_token=pk.eyJ1IjoicmVsbm94IiwiYSI6ImNpa2VhdzN2bzAwM2t0b2x5bmZ0czF6MzgifQ.KtqxBH_3rkMaHCn_Pm3Pag#2.2/25.231097/-3.282574/0';
+    document.body.appendChild(iframe);
+    Maptastic(iframe);
+}
+
+
 //---------------------------------------------------------------------- 
 // INTERACTION
 
