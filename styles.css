@@ -30,14 +30,8 @@ body {
 
 }
 
-/* #keystoneContainer2{
-    width: 200px !important;
-    height: 200px !important;
-    background-color: rgba(0, 162, 255, 0.1);
-} */
-
 .helpDiv {
-    position: relative;
+    position: fixed;
     left: 2rem;
     width: 60%;
     

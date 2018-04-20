@@ -9,15 +9,6 @@ $('<div/>', {
 }).appendTo('body');
 Maptastic("keystoneContainer");
 
-
-// //make second div
-// $('<div/>', {
-//     id: 'keystoneContainer2',
-// }).appendTo('body');
-// //run mapping class for both divs
-// Maptastic("keystoneContainer", "keystoneContainer2")
-
-
 //---------------------------------------------------------------------- 
 // TODO: hide chanel variable once it is working
 window.document.channel = new BroadcastChannel('channel');
@@ -42,7 +33,6 @@ window.document.channel.onmessage = function (m) {
         default:
             console.log('undefined command:' + data.command);
     }
-
 }
 
 const sendContianer = document.querySelector('#send');
@@ -52,14 +42,12 @@ sendContianer.addEventListener('click', e => {
     window.document.channel.postMessage(JSON.stringify(incMessage));
 });
 
-
 //---------------------------------------------------------------------- 
 
 //full screen when '`/~' is pressed
 function toggleFullScreen() {
     var doc = window.document;
     var docEl = doc.documentElement;
-
     var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen ||
         docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
     var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen ||
@@ -208,43 +196,72 @@ function cropSlide(direction) {
 //----------------------------------------------------------------------
 
 function makeIframe() {
-    var iframe = document.createElement('iframe');
-    iframe.src = 'https://api.mapbox.com/styles/v1/relnox/cjg1ixe5s2ubp2rl3eqzjz2ud.html?fresh=true&title=true&access_token=pk.eyJ1IjoicmVsbm94IiwiYSI6ImNpa2VhdzN2bzAwM2t0b2x5bmZ0czF6MzgifQ.KtqxBH_3rkMaHCn_Pm3Pag#2.2/25.231097/-3.282574/0';
-    document.body.appendChild(iframe);
+    var url = document.getElementById('inputTxt').value;
+    console.log(url);
+
+    var iframe = '';
+    if (document.getElementById('iframe') == null) {
+        iframe = document.createElement('iframe');
+        document.body.appendChild(iframe);
+    } else {
+        iframe = document.getElementById('iframe');
+    }
+    console.log(iframe);
+
+    if (url == 'URL' || url == '') {
+        iframe.src = 'https://www.youtube.com/embed/2soGJXQAQec?rel=0&controls=0&showinfo=0&start=56';
+    } else {
+        iframe.src = url;
+    }
     Maptastic(iframe);
 }
 
 
 //---------------------------------------------------------------------- 
-// INTERACTION
 
-// key listener 
-document.addEventListener("keydown", function (e) {
-    if (e.keyCode == 192) {
-        toggleFullScreen();
+function cityIO() {
+
+    var localStorageKey = 'maptastic.layers';
+    if (localStorage.getItem(localStorageKey)) {
+        var data = JSON.parse(localStorage.getItem(localStorageKey));
+        console.log(data[0]);
+        //send to cityIO 
+        fetch("https://cityio.media.mit.edu/api/table/update/prjmapJS", {
+            method: "POST",
+            body: data[0]
+        }).then((response) => {
+            console.log(response);
+        });
     }
-}, false);
+}
 
+//---------------------------------------------------------------------- 
+
+// INTERACTION
 //interaction and loading files 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 document.body.addEventListener('keydown', (event) => {
     const keyName = event.key;
+    const keyCode = event.keyCode;
     let message = {};
     message.command = 'sync';
+    //change slides and send to channel 
     if (keyName == 'ArrowLeft') {
         plusSlides(-1);
-        message.id = slideIndex;
-        window.document.channel.postMessage(JSON.stringify(message));
+        message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
     } else if (keyName == 'ArrowRight' || keyName == 'b') {
         plusSlides(1);
-        message.id = slideIndex;
-        window.document.channel.postMessage(JSON.stringify(message));
-    } else if (keyName == 'p') {
+        message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
+    } else if (keyCode == 192) {
+        toggleFullScreen();
+    } else if (keyName == 'P') {
         togglePlayPause();
     } else if (keyName == '-') {
         cropSlide(-10)
     } else if (keyName == '=') {
         cropSlide(10)
+    } else if (keyName == 'S') {
+        cityIO();
     }
 }, false);
 
