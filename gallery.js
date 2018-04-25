@@ -183,13 +183,25 @@ function togglePlayPause() {
 }
 
 //----------------------------------------------------------------------
-
-let translateAmount = 0;
-function cropSlide(direction) {
-    translateAmount = translateAmount + direction;
+let shiftHolder = 0;
+function shiftContent(translateAmount) {
+    shiftHolder = shiftHolder + translateAmount;
     let allslides = document.getElementsByClassName('mySlides')
     for (let i = 0; i < allslides.length; i++) {
-        allslides[i].style.transform = "translate(" + translateAmount + "%, 0)";
+        allslides[i].style.transform = "translate(" + shiftHolder + "%, 0)";
+    }
+}
+
+//----------------------------------------------------------------------
+
+let cropHolder = 100;
+function slideDivCrop(cropAmount) {
+    cropHolder = cropAmount + cropHolder;
+    console.log(cropHolder);
+
+    let allslides = document.getElementsByClassName('mySlides')
+    for (let i = 0; i < allslides.length; i++) {
+        allslides[i].style.width = cropHolder + "%";
     }
 }
 
@@ -238,6 +250,7 @@ function cityIO() {
 
 //---------------------------------------------------------------------- 
 
+
 // INTERACTION
 //interaction and loading files 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
@@ -258,9 +271,13 @@ document.body.addEventListener('keydown', (event) => {
     } else if (keyName == 'P') {
         togglePlayPause();
     } else if (keyName == '-') {
-        cropSlide(-10)
+        shiftContent(-10)
     } else if (keyName == '=') {
-        cropSlide(10)
+        shiftContent(10)
+    } else if (keyName == '[') {
+        slideDivCrop(-5)
+    } else if (keyName == ']') {
+        slideDivCrop(5)
     } else if (keyName == 'S') {
         cityIO();
     }

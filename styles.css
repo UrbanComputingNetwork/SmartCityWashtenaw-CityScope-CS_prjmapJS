@@ -45,10 +45,12 @@ iframe{
     height: 600px;
 }
 
+/* slide div crop settings  */
 .mySlides {
     width: 200% ;
     height: 100% ;
 }
+
 #keystoneContainer{
     width: 100% ;
     height: 100% ;
