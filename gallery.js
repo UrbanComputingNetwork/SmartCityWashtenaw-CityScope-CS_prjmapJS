@@ -101,20 +101,21 @@ function handleFileSelect(evt) {
 function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("mySlides");
+
     //hide all slides divs  at start 
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
     //resert roll to 1 at end 
     if (n == slides.length) {
-        slideIndex = 1
+        slideIndex = 0
     }
     //avoid slide zero
     if (n < 1) {
-        slideIndex = 1
+        slideIndex = 0
     }
     //set this slide 
-    thisSlide = slides[(slideIndex - 1)];
+    thisSlide = slides[(slideIndex)];
     //reset video at each slide to avoid differences in divs 
     if (thisSlide.querySelector('video')) {
         console.log('video');
