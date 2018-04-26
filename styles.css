@@ -21,7 +21,7 @@ body {
 
 #keystoneContainer{
     overflow: hidden;
-    width: 800px !important;
+    width: 400px !important;
     height: 800px !important;
     /* background-color: rgba(255, 0, 191, 0.1); */
     border-style: solid;
@@ -31,7 +31,7 @@ body {
 
 /* slide div crop settings  */
 .mySlides {
-    width: 100% ;
+    width: 200% ;
     height: 100% ;
 }
 
