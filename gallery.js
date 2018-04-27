@@ -97,41 +97,38 @@ function handleFileSelect(evt) {
 
 //---------------------------------------------------------------------- 
 
+//on click go to next/prev slide 
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
+
+//---------------------------------------------------------------------- 
+
 //feed the inner div with the relevant slide content 
 function showSlides(n) {
+    console.log(n);
     var i;
     var slides = document.getElementsByClassName("mySlides");
 
-    //hide all slides divs  at start 
+    //hide all slides divs at start 
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
     //resert roll to 1 at end 
-    if (n == slides.length) {
+    if (slides.length > 0 && n == slides.length) {
         slideIndex = 0
     }
-    //avoid slide zero
-    if (n < 1) {
-        slideIndex = 0
+    // //avoid slide zero
+    if (n < 0 && slides.length > 0) {
+        slideIndex = slides.length - 1;
     }
     //set this slide 
     thisSlide = slides[(slideIndex)];
     //reset video at each slide to avoid differences in divs 
     if (thisSlide.querySelector('video')) {
-        console.log('video');
-        // thisSlide.querySelector('video').load();
         thisSlide.querySelector('video').currentTime = 0;
     }
     thisSlide.style.display = "block";
-    // $('#keystoneContainer2').html($(thisSlide).clone());
-}
-
-//---------------------------------------------------------------------- 
-
-//on click go to next/prev slide 
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-    // send meesage here
 }
 
 //---------------------------------------------------------------------- 
@@ -153,10 +150,7 @@ function autoSlideShow() {
     if (slideIndex == slides.length) {
         slideIndex = 1
     }
-    //avoid slide zero
-    if (slideIndex < 1) {
-        slideIndex = 1
-    }
+
     //set this slide 
     thisSlide = slides[(slideIndex - 1)];
 
@@ -266,11 +260,13 @@ document.body.addEventListener('keydown', (event) => {
     message.command = 'sync';
     //change slides and send to channel 
     if (keyName == 'ArrowLeft') {
+        message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
         plusSlides(-1);
-        message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
+
     } else if (keyName == 'ArrowRight' || keyName == 'b') {
-        plusSlides(1);
         message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
+        plusSlides(1);
+
     } else if (keyCode == 48) {
         toggleFullScreen();
     } else if (keyName == 'P') {
