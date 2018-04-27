@@ -138,6 +138,9 @@ function plusSlides(n) {
 
 //autoplay when press P
 function autoSlideShow() {
+    let interval = 5000;
+    alert("Auto slideshow, every " + interval / 1000 + " seconds.");
+
     var i;
     var slides = document.getElementsByClassName("mySlides");
     //hide all slides divs  at start 
@@ -174,8 +177,11 @@ function autoSlideShow() {
 
 function togglePlayPause() {
     if (playing == true) {
+        alert("Stopped auto slideshow.");
+
         playing = false;
         clearTimeout(currentTimeout);
+
     } else {
         playing = true;
         autoSlideShow();
@@ -250,7 +256,6 @@ function cityIO() {
 
 //---------------------------------------------------------------------- 
 
-
 // INTERACTION
 //interaction and loading files 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
@@ -283,7 +288,7 @@ document.body.addEventListener('keydown', (event) => {
     }
 }, false);
 
-
+// key combiations 
 document.onkeydown = KeyPress;
 
 function KeyPress(e) {
@@ -295,9 +300,12 @@ function KeyPress(e) {
             ui.style.display = "none"
         }
         else {
-
             ui.style.display = "block"
         }
+    } else if (evtobj.keyCode == 68 && evtobj.ctrlKey) {
+        alert("Ctrl+d pressed, clearing local storage");
+        localStorage.clear();
+        location.reload();
     }
 }
 

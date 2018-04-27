@@ -5,8 +5,8 @@ body {
     background-size: 40px 40px;
     background-color: black;
     background-image: 
-    linear-gradient(to right, rgb(56, 56, 56) 0.1px, transparent 1px), 
-    linear-gradient(to bottom, rgb(56, 56, 56) 0.1px, transparent 1px);
+    linear-gradient(to right, rgb(29, 29, 29) 0.1px, transparent 1px), 
+    linear-gradient(to bottom, rgb(27, 27, 27) 0.1px, transparent 1px);
 }
 
 :-webkit-full-screen {
@@ -18,9 +18,11 @@ body {
 }
 
 #keystoneContainer{
+    margin-left: 50%;
+    margin-top:5%;
     overflow: hidden;
-    width: 400px !important;
-    height: 800px !important;
+    width: 300px !important;
+    height: 600px !important;
     /* background-color: rgba(255, 0, 191, 0.1); */
     border-style: solid;
     border-width: 1px;
@@ -37,10 +39,15 @@ body {
     position: fixed;
     left: 2rem;
     width: 60%;
-    
     top:2rem;
     font-size: 14px;
     font-family: Helvetica, sans-serif;
+}
+
+.logo{
+        position: fixed;
+        left: 50%;
+        top:30%;
 }
 
 iframe{
