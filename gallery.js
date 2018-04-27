@@ -66,7 +66,6 @@ function toggleFullScreen() {
 function handleFileSelect(evt) {
     // FileList object
     var files = evt.target.files;
-    console.log(files);
 
     // files is a FileList of File objects. List some properties.
     var output = [];
@@ -92,6 +91,7 @@ function handleFileSelect(evt) {
     }
     // put slides in first div
     document.getElementById('keystoneContainer').innerHTML = output.join('');
+
     showSlides(0);
 }
 
@@ -266,7 +266,7 @@ document.body.addEventListener('keydown', (event) => {
     } else if (keyName == 'ArrowRight' || keyName == 'b') {
         plusSlides(1);
         message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
-    } else if (keyCode == 192) {
+    } else if (keyCode == 48) {
         toggleFullScreen();
     } else if (keyName == 'P') {
         togglePlayPause();
@@ -284,4 +284,20 @@ document.body.addEventListener('keydown', (event) => {
 }, false);
 
 
+document.onkeydown = KeyPress;
+
+function KeyPress(e) {
+    var evtobj = window.event ? event : e
+    if (evtobj.keyCode == 72 && evtobj.ctrlKey) {
+        alert("Ctrl+h pressed, toggle help and UI");
+        let ui = document.getElementById('ui');
+        if (ui.style.display == "block") {
+            ui.style.display = "none"
+        }
+        else {
+
+            ui.style.display = "block"
+        }
+    }
+}
 

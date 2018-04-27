@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js"> </script>
 
     <script type="application/ld+json">
@@ -30,62 +29,48 @@
 </head>
 
 <body>
-    <div class="overCanvas">
-
+    <div id="ui" class="overCanvas" style="display: block;">
         <input type="file" id="files" name="files[]" multiple />
-        <button onclick="toggleHelp()">help</button>
-
         <input type="text" name="fname" value="URL" id='inputTxt'>
         <input type="button" value="Make Iframe" onclick="makeIframe()">
+        <div id="helpDiv" class="helpDiv">
+            <img src="bg.png" alt="Key Stoner" height="180">
 
+            <br>
+            <div>
 
-    </div>
-    <output id="list"></output>
+                <ul>
+                    <h2>Note: all slides must be
+                        <br>in a subfolder called 'media'</h2>
+                    <h3>
+                        <br>[0] for full screen
+                        <br>[ctrl+h] for show/hide help & UI
+                        <br> [Shift+z] to Toggle 'keystone Mode'
+                </ul>
+                </h3>
 
-    <div id="helpDiv" class="helpDiv">
-        <img src="bg.png" alt="Key Stoner" height="180">
-
-        <br>
-        <div>
-
-            <ul>
-                <h3>Note: all slides must be in a folder called 'media'</h3>
-                <br>[~] for full screen
-                <br> [Shift+z] to Toggle 'keystone Mode'
-            </ul>
-
-            <strong>When in Keystone Mode</strong>
-            <ul>
-                <li>click or drag select and move quads/corner points</li>
-                <li>SHIFT + drag move selected quad/corner point with 10x precision</li>
-                <li>ALT + drag rotate and scale selected quad</li>
-                <li>SHIFT + ALT + drag rotate and scale selected quad with 10x precision.</li>
-                <li>Arrow keys move selected quad/corner point</li>
-                <li>SHIFT + Arrow keys move selected quad/corner point by 10 pixels</li>
-                <li>ALT + Arrow keys rotate and scale selected quad</li>
-                <li>'s' Solo or unsolo the selected quad (hides all others).
-                    <br>This helps to adjust quads when corner points are very close together.</li>
-                <li>'c' Toggle mouse cursor crosshairs</li>
-                <li>'b' Toggle display bounds/metrics</li>
-                <li>'r' Rotate selected layer 90 degrees clockwise</li>
-                <li>'h' Flip selected layer horizontally</li>
-                <li>'v' Flip selected layer vertically</li>
-            </ul>
-            <div id="send">
-
+                <strong>When in Keystone Mode</strong>
+                <ul>
+                    <li>click or drag select and move quads/corner points</li>
+                    <li>SHIFT + drag move selected quad/corner point with 10x precision</li>
+                    <li>ALT + drag rotate and scale selected quad</li>
+                    <li>SHIFT + ALT + drag rotate and scale selected quad with 10x precision.</li>
+                    <li>Arrow keys move selected quad/corner point</li>
+                    <li>SHIFT + Arrow keys move selected quad/corner point by 10 pixels</li>
+                    <li>ALT + Arrow keys rotate and scale selected quad</li>
+                    <li>'s' Solo or unsolo the selected quad (hides all others).
+                        <br>This helps to adjust quads when corner points are very close together.</li>
+                    <li>'c' Toggle mouse cursor crosshairs</li>
+                    <li>'b' Toggle display bounds/metrics</li>
+                    <li>'r' Rotate selected layer 90 degrees clockwise</li>
+                    <li>'h' Flip selected layer horizontally</li>
+                    <li>'v' Flip selected layer vertically</li>
+                </ul>
             </div>
         </div>
-
-        <script>
-            function toggleHelp() {
-                var x = document.getElementById("helpDiv");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-        </script>
+        <!-- channel sender -->
+        <div id="send"></div>
+        <output id="list"></output>
 
 </body>
 
