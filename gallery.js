@@ -66,6 +66,8 @@ function toggleFullScreen() {
 function handleFileSelect(evt) {
     // FileList object
     var files = evt.target.files;
+    console.log(files);
+
 
     // files is a FileList of File objects. List some properties.
     var output = [];
@@ -74,17 +76,15 @@ function handleFileSelect(evt) {
     for (var i = 0, f; f = files[i]; i++) {
 
         //if img file ext.
-        if (f.name.slice(-3) != "mov" && f.name.slice(-3) != "MOV" && f.name.slice(-3) != "mp4" && f.name.slice(-3) != "mpe" && f.name.slice(-
-            3) != "MP4" && f.name.slice(-3) != "avi" && f.name.slice(-3) != "AVI") {
+        if (f.name.slice(-3) != "mov" && f.name.slice(-3) != "MOV" && f.name.slice(-3) != "mp4" && f.name.slice(-3) != "mpe" && f.name.slice(-3) != "MP4" && f.name.slice(-3) != "avi" && f.name.slice(-3) != "AVI") {
             output.push("<div class=\" mySlides fade\" ><img src=\" media/" + escape(f.name) + "\" height=\" 100%\" width= \"100%\" ></div>");
 
         } else {
 
             //if movie file
             output.push(
-                "<div class=\"mySlides fade\"><video controls=\"controls\" poster=\"MEDIA\" preload=\"true\" loop=\"true\" autoplay=\"true\" src=\"media/" +
-                escape(f.name) + "\" id=\"video" + i +
-                "\" height=\"100%\" width= \"100%\"></video></div>");
+                "<div class=\"mySlides fade\"><video controls=\"controls\" poster=\"MEDIA\" preload=\"true\" loop=\"true\" autoplay=\"true\" src=\"media/" + escape(f.name) + "\" id=\"video" + i + "\" height=\"100%\" width= \"100%\"></video></div>");
+
             video_id = "video" + i;
             video_ids.push(video_id);
         }
