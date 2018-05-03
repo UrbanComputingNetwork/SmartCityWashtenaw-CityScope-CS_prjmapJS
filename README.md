@@ -10,6 +10,10 @@ PrjMap uses the wonderful MapTasticJS lib: https://github.com/glowbox/maptasticj
 
 This tool allows projection mapping [key-stone] of multiple DOM Div objects. The tool will load, display and save the last position of the mapped object between browser sessions.
 
+## Requirements
+
+- latest firefox recomennded  
+
 ## Usage
 
 - clone this repo
