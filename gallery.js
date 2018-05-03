@@ -17,17 +17,13 @@ window.document.channel.onmessage = function (m) {
     let data = JSON.parse(m.data);
 
     switch (data.command) {
-        case 'increment':
-            console.log('i wanna increment');
-            plusSlides(1); // TODO: error handle this
-            break;
-        case 'decrement':
-            console.log('i wanna decrement');
-            plusSlides(-1); // TODO: error handle this
-            break;
         case 'sync':
-            console.log('sync with slide No:' + slideIndex);
+            console.log('sync with slide No:' + slideIndex + ', ts: ' + Date.now());
             slideIndex = data.id;
+            showSlides(slideIndex);
+            break;
+      case 'restartVideo':
+            console.log('forcing video to position 0 and restart' )
             showSlides(slideIndex);
             break;
         default:
@@ -83,7 +79,7 @@ function handleFileSelect(evt) {
 
             //if movie file
             output.push(
-                "<div class=\"mySlides fade\"><video controls=\"controls\" poster=\"MEDIA\" preload=\"true\" loop=\"true\" autoplay=\"true\" src=\"media/" + escape(f.name) + "\" id=\"video" + i + "\" height=\"100%\" width= \"100%\"></video></div>");
+                "<div class=\"mySlides fade\"><video controls=\"controls\" poster=\"MEDIA\" src=\"media/" + escape(f.name) + "\" id=\"video" + i + "\" height=\"100%\" width= \"100%\"></video></div>");
 
             video_id = "video" + i;
             video_ids.push(video_id);
@@ -106,7 +102,7 @@ function plusSlides(n) {
 
 //feed the inner div with the relevant slide content 
 function showSlides(n) {
-    console.log(n);
+    // console.log(n);
     var i;
     var slides = document.getElementsByClassName("mySlides");
 
@@ -124,9 +120,20 @@ function showSlides(n) {
     }
     //set this slide 
     thisSlide = slides[(slideIndex)];
-    //reset video at each slide to avoid differences in divs 
+
     if (thisSlide.querySelector('video')) {
-        thisSlide.querySelector('video').currentTime = 0;
+        let video = thisSlide.querySelector('video')
+        console.log(video);
+        video.currentTime = 0;
+        video.pause();
+        video.onended = function() {
+          console.log("video ended! ts: " + Date.now());
+          let message = {}
+          message.command = 'restartVideo'
+          window.document.channel.postMessage(JSON.stringify(message));
+          showSlides(n); // which plays again  
+    }
+      video.play();
     }
     thisSlide.style.display = "block";
 }
@@ -260,11 +267,15 @@ document.body.addEventListener('keydown', (event) => {
     message.command = 'sync';
     //change slides and send to channel 
     if (keyName == 'ArrowLeft') {
-        message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
+        message.id = slideIndex; 
+        console.log('(master) sync with slide No:' + slideIndex + ', ts: '+ Date.now());
+        window.document.channel.postMessage(JSON.stringify(message));
         plusSlides(-1);
 
     } else if (keyName == 'ArrowRight' || keyName == 'b') {
-        message.id = slideIndex; window.document.channel.postMessage(JSON.stringify(message));
+        message.id = slideIndex; 
+        console.log('(master) sync with slide No:' + slideIndex + ', ts: '+ Date.now());
+        window.document.channel.postMessage(JSON.stringify(message));
         plusSlides(1);
 
     } else if (keyCode == 48) {
