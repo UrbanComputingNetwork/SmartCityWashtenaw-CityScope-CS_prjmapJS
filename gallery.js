@@ -22,8 +22,8 @@ window.document.channel.onmessage = function (m) {
             slideIndex = data.id;
             showSlides(slideIndex);
             break;
-      case 'restartVideo':
-            console.log('forcing video to position 0 and restart' )
+        case 'restartVideo':
+            console.log('forcing video to position 0 and restart')
             showSlides(slideIndex);
             break;
         default:
@@ -102,7 +102,7 @@ function plusSlides(n) {
 
 //feed the inner div with the relevant slide content 
 function showSlides(n) {
-    // console.log(n);
+
     var i;
     var slides = document.getElementsByClassName("mySlides");
 
@@ -123,17 +123,17 @@ function showSlides(n) {
 
     if (thisSlide.querySelector('video')) {
         let video = thisSlide.querySelector('video')
-        console.log(video);
+
         video.currentTime = 0;
         video.pause();
-        video.onended = function() {
-          console.log("video ended! ts: " + Date.now());
-          let message = {}
-          message.command = 'restartVideo'
-          window.document.channel.postMessage(JSON.stringify(message));
-          showSlides(n); // which plays again  
-    }
-      video.play();
+        video.onended = function () {
+            console.log("video ended! ts: " + Date.now());
+            let message = {}
+            message.command = 'restartVideo'
+            window.document.channel.postMessage(JSON.stringify(message));
+            showSlides(n); // which plays again  
+        }
+        video.play();
     }
     thisSlide.style.display = "block";
 }
@@ -142,9 +142,8 @@ function showSlides(n) {
 
 //autoplay when press P
 function autoSlideShow() {
-    let interval = 5000;
-    alert("Auto slideshow, every " + interval / 1000 + " seconds.");
-
+    let interval = document.getElementById('intSlide').value;
+    console.log("Auto slideshow, every " + interval + " seconds.");
     var i;
     var slides = document.getElementsByClassName("mySlides");
     //hide all slides divs  at start 
@@ -153,24 +152,33 @@ function autoSlideShow() {
     }
 
     slideIndex++
+
     //resert roll to 1 at end 
     if (slideIndex == slides.length) {
-        slideIndex = 1
+        slideIndex = 0
     }
-
     //set this slide 
-    thisSlide = slides[(slideIndex - 1)];
+    thisSlide = slides[(slideIndex)];
 
-    //reset video at each slide to avoid differences in divs 
+    // if video 
     if (thisSlide.querySelector('video')) {
-        console.log('video');
-        thisSlide.querySelector('video').load();
+        let video = thisSlide.querySelector('video')
+
+        video.currentTime = 0;
+        video.pause();
+        video.onended = function () {
+            console.log("video ended! ts: " + Date.now());
+            let message = {}
+            message.command = 'restartVideo'
+            window.document.channel.postMessage(JSON.stringify(message));
+            showSlides(n); // which plays again  
+        }
+        video.play();
     }
     thisSlide.style.display = "block";
-    // $('#keystoneContainer2').html($(thisSlide).clone());
 
     if (playing == true) {
-        currentTimeout = setTimeout(autoSlideShow, 1000); // Change image every x miliseconds
+        currentTimeout = setTimeout(autoSlideShow, interval * 1000); // Change image every x miliseconds
     }
 }
 
@@ -178,12 +186,10 @@ function autoSlideShow() {
 
 function togglePlayPause() {
     if (playing == true) {
-        alert("Stopped auto slideshow.");
-
         playing = false;
         clearTimeout(currentTimeout);
-
     } else {
+        //play slide show 
         playing = true;
         autoSlideShow();
     }
@@ -244,7 +250,6 @@ function cityIO() {
     var localStorageKey = 'maptastic.layers';
     if (localStorage.getItem(localStorageKey)) {
         var data = JSON.parse(localStorage.getItem(localStorageKey));
-        console.log(data[0]);
         //send to cityIO 
         fetch("https://cityio.media.mit.edu/api/table/update/prjmapJS", {
             method: "POST",
@@ -267,14 +272,14 @@ document.body.addEventListener('keydown', (event) => {
     message.command = 'sync';
     //change slides and send to channel 
     if (keyName == 'ArrowLeft') {
-        message.id = slideIndex; 
-        console.log('(master) sync with slide No:' + slideIndex + ', ts: '+ Date.now());
+        message.id = slideIndex;
+        console.log('(master) sync with slide No:' + slideIndex + ', ts: ' + Date.now());
         window.document.channel.postMessage(JSON.stringify(message));
         plusSlides(-1);
 
     } else if (keyName == 'ArrowRight' || keyName == 'b') {
-        message.id = slideIndex; 
-        console.log('(master) sync with slide No:' + slideIndex + ', ts: '+ Date.now());
+        message.id = slideIndex;
+        console.log('(master) sync with slide No:' + slideIndex + ', ts: ' + Date.now());
         window.document.channel.postMessage(JSON.stringify(message));
         plusSlides(1);
 
@@ -301,7 +306,7 @@ document.onkeydown = KeyPress;
 function KeyPress(e) {
     var evtobj = window.event ? event : e
     if (evtobj.keyCode == 72 && evtobj.ctrlKey) {
-        alert("Ctrl+h pressed, toggle help and UI");
+        console.log("Ctrl+h pressed, toggle help and UI");
         let ui = document.getElementById('ui');
         if (ui.style.display == "block") {
             ui.style.display = "none"
