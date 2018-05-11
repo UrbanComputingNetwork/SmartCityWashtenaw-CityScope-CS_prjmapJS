@@ -1,5 +1,5 @@
 var slideIndex = 0;
-var playing = true;
+var playing = false;
 var currentTimeout;
 
 
@@ -246,7 +246,6 @@ function makeIframe() {
 //---------------------------------------------------------------------- 
 
 function cityIO() {
-
     var localStorageKey = 'maptastic.layers';
     if (localStorage.getItem(localStorageKey)) {
         var data = JSON.parse(localStorage.getItem(localStorageKey));
@@ -285,6 +284,17 @@ document.body.addEventListener('keydown', (event) => {
 
     } else if (keyCode == 48) {
         toggleFullScreen();
+        // if (evtobj.keyCode == 72 && evtobj.ctrlKey) {
+        console.log(" [0] pressed, toggle full screen, help and UI");
+        let ui = document.getElementById('ui');
+        if (ui.style.display == "block") {
+            ui.style.display = "none"
+        }
+        else {
+            ui.style.display = "block"
+        }
+        // } else 
+
     } else if (keyName == 'P') {
         togglePlayPause();
     } else if (keyName == '-') {
@@ -302,19 +312,9 @@ document.body.addEventListener('keydown', (event) => {
 
 // key combiations 
 document.onkeydown = KeyPress;
-
 function KeyPress(e) {
     var evtobj = window.event ? event : e
-    if (evtobj.keyCode == 72 && evtobj.ctrlKey) {
-        console.log("Ctrl+h pressed, toggle help and UI");
-        let ui = document.getElementById('ui');
-        if (ui.style.display == "block") {
-            ui.style.display = "none"
-        }
-        else {
-            ui.style.display = "block"
-        }
-    } else if (evtobj.keyCode == 68 && evtobj.ctrlKey) {
+    if (evtobj.keyCode == 68 && evtobj.ctrlKey) {
         alert("Ctrl+d pressed, clearing local storage");
         localStorage.clear();
         location.reload();

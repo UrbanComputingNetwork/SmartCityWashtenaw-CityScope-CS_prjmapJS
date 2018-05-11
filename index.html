@@ -38,15 +38,18 @@
             <input type="file" id="files" name="files[]" multiple /></input>
             <output id="list"></output>
             <br>
+            <br>
+            <input type="text" value="2 sec" id="intSlide"></input>
+            <input type="button" value="Toggle Slideshow" onclick="togglePlayPause()">
+            <br>
+            <br>
             <input type="text" name="fname" value="URL" id='inputTxt'></input>
             <input type="button" value="Make Iframe" onclick="makeIframe()">
             <br>
-            <input type="text" value="seconds" id="intSlide"></input>
-            <input type="button" value="Toggle Slideshow" onclick="togglePlayPause()">
+
             <ul>
                 <h3>Note: all slides must be in a subfolder called 'media'</h3>
-                <br>[0] for full screen
-                <br>[ctrl+h] for show/hide help & UI
+                <br>[0] for full screen & show/hide help UI
                 <br>[ctrl+d] to clear local storage [reset keystone]
                 <br> [Shift+z] to Toggle 'keystone Mode'
                 <br> [Shift+p] to Toggle auto-slideshow
