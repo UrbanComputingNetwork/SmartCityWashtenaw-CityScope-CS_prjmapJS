@@ -3,7 +3,7 @@ var playing = false;
 var currentTimeout;
 
 
-// make the first div
+// make the keystoneContainer div
 $('<div/>', {
     id: 'keystoneContainer',
 }).appendTo('body');
@@ -38,31 +38,13 @@ sendContianer.addEventListener('click', e => {
     window.document.channel.postMessage(JSON.stringify(incMessage));
 });
 
-//---------------------------------------------------------------------- 
-
-//full screen when '`/~' is pressed
-function toggleFullScreen() {
-    var doc = window.document;
-    var docEl = doc.documentElement;
-    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen ||
-        docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen ||
-        doc.webkitExitFullscreen || doc.msExitFullscreen;
-
-    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-        requestFullScreen.call(docEl);
-    }
-    else {
-        cancelFullScreen.call(doc);
-    }
-}
 
 //---------------------------------------------------------------------- 
 
 function handleFileSelect(evt) {
     // FileList object
     var files = evt.target.files;
-    console.log(files);
+    console.log(evt);
 
 
     // files is a FileList of File objects. List some properties.
@@ -71,9 +53,10 @@ function handleFileSelect(evt) {
     //loop through slected files 
     for (var i = 0, f; f = files[i]; i++) {
 
+
         //if img file ext.
         if (f.name.slice(-3) != "mov" && f.name.slice(-3) != "MOV" && f.name.slice(-3) != "mp4" && f.name.slice(-3) != "mpe" && f.name.slice(-3) != "MP4" && f.name.slice(-3) != "avi" && f.name.slice(-3) != "AVI") {
-            output.push("<div class=\" mySlides fade\" ><img src=\" media/" + escape(f.name) + "\" height=\" 100%\" width= \"100%\" ></div>");
+            output.push("<div class=\" mySlides fade\" ><img src=\"media/" + escape(f.name) + "\" height=\" 100%\" width= \"100%\" ></div>");
 
         } else {
 
@@ -142,7 +125,15 @@ function showSlides(n) {
 
 //autoplay when press P
 function autoSlideShow() {
-    let interval = document.getElementById('intSlide').value;
+    let interval;
+    input = document.getElementById('intSlide');
+
+    if (!input.value) {
+        interval = input.placeholder;
+    } else {
+        interval = input.value;
+    }
+
     console.log("Auto slideshow, every " + interval + " seconds.");
     var i;
     var slides = document.getElementsByClassName("mySlides");
@@ -218,6 +209,24 @@ function slideDivCrop(cropAmount) {
     }
 }
 
+//---------------------------------------------------------------------- 
+
+//full screen when '`/~' is pressed
+function toggleFullScreen() {
+    var doc = window.document;
+    var docEl = doc.documentElement;
+    var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen ||
+        docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen ||
+        doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        requestFullScreen.call(docEl);
+    }
+    else {
+        cancelFullScreen.call(doc);
+    }
+}
 
 //----------------------------------------------------------------------
 
@@ -262,8 +271,11 @@ function cityIO() {
 //---------------------------------------------------------------------- 
 
 // INTERACTION
-//interaction and loading files 
+
+//loading files 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+//interaction
 document.body.addEventListener('keydown', (event) => {
     const keyName = event.key;
     const keyCode = event.keyCode;
@@ -282,10 +294,10 @@ document.body.addEventListener('keydown', (event) => {
         window.document.channel.postMessage(JSON.stringify(message));
         plusSlides(1);
 
-    } else if (keyCode == 48) {
+    } else if (keyCode == 70) {
         toggleFullScreen();
         // if (evtobj.keyCode == 72 && evtobj.ctrlKey) {
-        console.log(" [0] pressed, toggle full screen, help and UI");
+        console.log(" [f] pressed, toggle full screen, help and UI");
         let ui = document.getElementById('ui');
         if (ui.style.display == "block") {
             ui.style.display = "none"
