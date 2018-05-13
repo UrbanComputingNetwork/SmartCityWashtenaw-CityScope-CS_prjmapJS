@@ -18,16 +18,20 @@ This tool allows projection mapping [key-stone] of multiple DOM Div objects. The
 
 - clone this repo
 - navigate to ```PrjMAP``` folder 
-- put images/videos [jepg, jpg, png, mp4, mov,avi] in the 
-``` media ``` folder [name can be edited in js]
+- put images/videos [jepg, jpg, png, mp4, mov,avi] in a folder called  
+``` media ```
 - load ```index.html``` 
-- the two objects are the two divs that will be populated with img/vids after load
+- the object will be populated with img/vids after load
 - click the button to load all/some files 
+
+### Multi-monitor/projector Usage
+- duplicate the same tab
+- load the same media files in both tabs
+- click left/right and the slides should be synced in both tabs 
 
 ### Slides 
 
 - use ```left/right``` arrow keys to change images 
-- press ```p``` to start auto slide show [time interval can be edited in ```gallery.js```]
 
 ### Keystoning/projection mapping 
 
