@@ -143,6 +143,11 @@ function autoSlideShow() {
     }
 
     slideIndex++
+    let message = {}
+    message.command = 'sync'
+    message.id = slideIndex;
+    window.document.channel.postMessage(JSON.stringify(message));
+
 
     //resert roll to 1 at end 
     if (slideIndex == slides.length) {
@@ -162,7 +167,7 @@ function autoSlideShow() {
             let message = {}
             message.command = 'restartVideo'
             window.document.channel.postMessage(JSON.stringify(message));
-            showSlides(n); // which plays again  
+            video.play();
         }
         video.play();
     }
